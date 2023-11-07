@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Contact Management System</title>
 </head>
 <body>
-    <h1>Login here</h1>
-    <input type="text" placeholder="enter your name">
-    <br>
-    <input type="email" name="" id="" placeholder="enter your email">
-    <br>
-    <input type="password" placeholder="enter your pwd">
-    <br>
-    <button>Login</button>
+  <h1>Contact Management System</h1>
+  <form id="contactForm">
+    <input type="text" id="nameInput" placeholder="Name" required>
+    <input type="text" id="phoneInput" placeholder="Phone" required>
+    <button type="submit">Add Contact</button>
+  </form>
+  <div id="contactList"></div>
+  <script src="script.js"></script>
 </body>
 </html>
+
