@@ -1,31 +1,35 @@
-// script.js
-const contactForm = document.getElementById("contactForm");
-const contactList = document.getElementById("contactList");
-
+// Array to store contacts
 let contacts = [];
 
-function addContact(name, phone) {
+// Function to display contacts
+const displayContacts = () => {
+  const contactList = document.getElementById('contactList');
+  contactList.innerHTML = '';
+  contacts.forEach((contact, index) => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `${contact.name} - ${contact.phone} 
+      <button class="edit-btn" data-id="${index}">Edit</button> 
+      <button class="delete-btn" data-id="${index}">Delete</button>`;
+    contactList.appendChild(listItem);
+  });
+};
+
+// Function to add a new contact
+const addContact = (name, phone) => {
   contacts.push({ name, phone });
   displayContacts();
-}
+};
 
-function displayContacts() {
-  contactList.innerHTML = "";
-  contacts.forEach((contact, index) => {
-    const contactItem = document.createElement("div");
-    contactItem.textContent = `Name: ${contact.name}, Phone: ${contact.phone}`;
-    contactList.appendChild(contactItem);
-  });
-}
-
-contactForm.addEventListener("submit", function (event) {
+// Event listener for the form submission
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const nameInput = document.getElementById("nameInput");
-  const phoneInput = document.getElementById("phoneInput");
-  addContact(nameInput.value, phoneInput.value);
-  nameInput.value = "";
-  phoneInput.value = "";
+  const name = document.getElementById('nameInput').value;
+  const phone = document.getElementById('phoneInput').value;
+  addContact(name, phone);
+  contactForm.reset();
 });
 
-displayContacts();
+// Paste the provided edit and delete functionalities here
+// Ensure to integrate the functions into the event listeners
 
