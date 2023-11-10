@@ -1,26 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Contact Management System</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <style>
+        /* CSS for Contact Manager */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#contactList {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
 </head>
 <body>
-  <h1>Contact Management System</h1>
+    <div id="contactList">
+        <!-- Contacts will be displayed here -->
+    </div>
+    <form id="contactForm">
+        <input type="text" id="nameInput" placeholder="Enter contact name">
+        <input type="text" id="phoneInput" placeholder="Enter phone number">
+        <button type="submit">Add Contact</button>
+    </form>
 
-  <!-- Form for adding contacts -->
-  <form id="contactForm">
-    <input type="text" id="nameInput" placeholder="Enter name" required>
-    <input type="text" id="phoneInput" placeholder="Enter phone number" required>
-    <button type="submit">Add Contact</button>
-  </form>
+    <script>
+       // Array to store contacts
+let contacts = [];
 
-  <!-- Display the list of contacts -->
-  <ul id="contactList">
-    <!-- Contacts will be dynamically added here -->
-  </ul>
+// Function to display contacts
+const displayContacts = () => {
+    const contactList = document.getElementById('contactList');
+    contactList.innerHTML = '';
+    contacts.forEach((contact, index) => {
+        const listItem = document.createElement('div');
+        listItem.innerHTML = `
+            <p>Name: ${contact.name}</p>
+            <p>Phone: ${contact.phone}</p>
+            <button onclick="editContact(${index})">Edit</button> 
+            <button onclick="deleteContact(${index})">Delete</button>
+            <hr>
+        `;
+        contactList.appendChild(listItem);
+    });
+};
 
-  <script src="script.js"></script>
+// Function to add a new contact
+const addContact = (name, phone) => {
+    contacts.push({ name, phone });
+    displayContacts();
+};
+
+// Function to edit a contact
+const editContact = (index) => {
+    const newName = prompt('Enter the new name:', contacts[index].name);
+    const newPhone = prompt('Enter the new phone number:', contacts[index].phone);
+    if (newName !== null && newPhone !== null) {
+        contacts[index].name = newName;
+        contacts[index].phone = newPhone;
+        displayContacts();
+    }
+};
+
+// Function to delete a contact
+const deleteContact = (index) => {
+    contacts.splice(index, 1);
+    displayContacts();
+};
+
+// Event listener for the form submission
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('nameInput').value;
+    const phone = document.getElementById('phoneInput').value;
+    addContact(name, phone);
+    contactForm.reset();
+});
+
+    </script>
 </body>
 </html>
-
-
